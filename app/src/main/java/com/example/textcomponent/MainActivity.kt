@@ -52,10 +52,11 @@ fun textWithTextStyle(){
     Text(text = "Sample Big header text style", style = h1)
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     TextComponentTheme {
-        textWithTextStyle()
+        Text(text = "My Sample Large header", style = MaterialTheme.typography.headlineLarge)
     }
 }
