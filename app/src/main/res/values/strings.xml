@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">TextComponent</string>
+    <plurals name="contact">
+        <item quantity="zero">No contact</item>
+        <item quantity="one">1 contact</item>
+        <item quantity="other">%d contacts</item>
+    </plurals>
 </resources>
