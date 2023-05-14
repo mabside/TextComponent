@@ -15,8 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.textcomponent.ui.theme.TextComponentTheme
@@ -62,7 +66,7 @@ fun textWithTextStyle(){
 @Composable
 fun DefaultPreview() {
     TextComponentTheme {
-        TextWithQuantity()
+        UrlSpanText()
     }
 }
 
@@ -83,3 +87,48 @@ fun TextWithQuantity(){
     }
 }
 
+@Composable
+fun ClickableText(){
+    TextButton(onClick = { /*TODO*/ }) {
+        Text(text = "Search")
+    }
+}
+
+@Composable
+fun UrlSpanText(){
+    val tag = "info"
+    val annotatedString = buildAnnotatedString {
+        val text = "For more info click here"
+        append(text)
+
+        val start = text.indexOf("here")
+        val end = start + 4
+
+        addStyle(
+            style =  SpanStyle(
+                color = MaterialTheme.colorScheme.primary,
+                textDecoration = TextDecoration.Underline
+            ),
+            start = start,
+            end = end
+        )
+
+        addStringAnnotation(
+            tag = tag,
+            annotation = "https://google.com",
+            start = start,
+            end = end
+        )
+    }
+
+    val uriHandler = LocalUriHandler.current
+
+    androidx.compose.foundation.text.ClickableText(text = annotatedString, onClick = { offset ->
+        annotatedString
+            .getStringAnnotations(tag, offset, offset)
+            .firstOrNull()
+            ?.let { string ->
+                uriHandler.openUri(string.item)
+            }
+    })
+}
