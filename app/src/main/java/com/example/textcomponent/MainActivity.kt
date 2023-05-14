@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.PluralsRes
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.textcomponent.ui.theme.TextComponentTheme
 
@@ -66,7 +67,7 @@ fun textWithTextStyle(){
 @Composable
 fun DefaultPreview() {
     TextComponentTheme {
-        UrlSpanText()
+        BaseLineText()
     }
 }
 
@@ -131,4 +132,16 @@ fun UrlSpanText(){
                 uriHandler.openUri(string.item)
             }
     })
+}
+
+/*
+Padding the text content with the main view
+ */
+@Composable
+fun BaseLineText(){
+    Text(
+        text = "Choose an account",
+        modifier = Modifier.padding(top = 40.dp),
+        style = MaterialTheme.typography.labelSmall
+    )
 }
